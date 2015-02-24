@@ -18,23 +18,16 @@ import org.apache.cordova.CordovaResourceApi;
 import org.apache.cordova.PluginResult;
 
 /**
- * ShareB64 is a PhoneGap plugin that bridges Android intents and web
- * applications:
- * 
- * 1. web apps can spawn intents that call native Android applications. 2.
- * (after setting up correct intent filters for PhoneGap applications), Android
- * intents can be handled by PhoneGap web applications.
- * 
+ * ShareB64 is a PhoneGap plugin
+ *  
  * @author odvpont@gmail.com
  * 
  */
 public class ShareB64 extends CordovaPlugin {
 
-    private CallbackContext onNewIntentCallbackContext = null;
-
-    //public boolean execute(String action, JSONArray args, String callbackId) {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+
         try {
 
             if (action.equals("share")) {
@@ -56,11 +49,11 @@ public class ShareB64 extends CordovaPlugin {
                 String imageData = obj.getString("imageData");
                 String message = obj.has("message") ? obj.getString("message") : null;
 
-
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
 
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-                String imageFileName = "Crocolor_" + timeStamp + "_";
+                String imageFileName = "Crocolor_" + timeStamp;
                 File albumF = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Crocolor");
 
                 if (albumF != null) {
@@ -83,16 +76,18 @@ public class ShareB64 extends CordovaPlugin {
 
                     Uri fileUri = Uri.fromFile(imageF);
 
-                    intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                    shareIntent.setType("image/jpeg");
                 }
 
 
                 if (message != null) {
-                    intent.putExtra(Intent.EXTRA_TEXT, message);
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, message);
+                    shareIntent.putExtra(Intent.EXTRA_TITLE, message);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                 }
-                intent.setType("image/jpg");
 
-                ((CordovaActivity) this.cordova.getActivity()).startActivity(intent);
+                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
@@ -103,7 +98,7 @@ public class ShareB64 extends CordovaPlugin {
             return false;
         } catch (JSONException e) {
             e.printStackTrace();
-            String errorMessage=e.getMessage();
+            String errorMessage = e.getMessage();
             //return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION,errorMessage));
             return false;
