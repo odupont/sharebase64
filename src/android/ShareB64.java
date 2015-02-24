@@ -5,6 +5,8 @@ import java.util.Map;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import org.apache.cordova.CordovaActivity;
 import org.json.JSONArray;
@@ -14,11 +16,15 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Base64;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaResourceApi;
 import org.apache.cordova.PluginResult;
+
 
 /**
  * ShareB64 is a PhoneGap plugin
