@@ -19,6 +19,13 @@
             </feature>
         </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
         <source-file src="src/android/ShareB64.java" target-dir="src/fr/odupont/sharebase64" />
     </platform>
+
+
+
 </plugin>

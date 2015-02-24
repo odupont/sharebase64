@@ -1,30 +1,31 @@
 package fr.odupont.sharebase64;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-/*import java.util.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.io.File;
-import java.io.FileOutputStream;*/
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.cordova.CordovaActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/*import android.content.Intent;
+import android.content.Intent;
 import android.net.Uri;
-import android.text.Html;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.util.Base64;*/
+import android.util.Base64;
+import android.util.Log;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaResourceApi;
 import org.apache.cordova.PluginResult;
 
 
@@ -39,7 +40,7 @@ public class ShareB64 extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        /*try {
+        try {
 
             if (action.equals("share")) {
                 if (args.length() != 1) {
@@ -71,7 +72,7 @@ public class ShareB64 extends CordovaPlugin {
                     if (! albumF.mkdirs()) {
                         if (! albumF.exists()){
                             Log.d("ShareB64", "failed to create directory");
-                            return;
+                            return false;
                          }
                     }
                 }
@@ -98,7 +99,7 @@ public class ShareB64 extends CordovaPlugin {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                 }
 
-                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));
+                ((CordovaActivity) this.cordova.getActivity()).startActivity(shareIntent);
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
@@ -111,8 +112,13 @@ public class ShareB64 extends CordovaPlugin {
             e.printStackTrace();
             String errorMessage = e.getMessage();
             //return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION,errorMessage));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, errorMessage));
             return false;
-        }*/
+        } catch (IOException e) {
+            String errorMessage = e.getMessage();
+            //return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, errorMessage));
+            return false;
+        }
     }
 }
