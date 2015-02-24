@@ -2,6 +2,7 @@ package fr.odupont.sharebase64;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Base64;
 
