@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" id="fr.odupont.sharebase64"
+      version="1.0.0">
+    <name>Share B64 Image</name>
+    <description>Share B64 Image</description>
+    <license>MIT</license>
+    <keywords>cordova, canvas, image, base, 64</keywords>
+
+    <js-module src="www/sharebase64.js" name="ShareB64">
+        <clobbers target="window.shareb64" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ShareB64" >
+                <param name="android-package" value="fr.odupont.sharebase64.ShareB64"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/ShareB64.java" target-dir="src/fr/odupont/sharebase64" />
+    </platform>
+</plugin>
