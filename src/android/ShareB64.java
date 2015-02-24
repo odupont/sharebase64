@@ -1,12 +1,8 @@
 package fr.odupont.sharebase64;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +16,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
@@ -37,6 +32,11 @@ import org.apache.cordova.PluginResult;
  */
 public class ShareB64 extends CordovaPlugin {
 
+    /*private boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return (Environment.MEDIA_MOUNTED.equals(state));
+    }*/
+    
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
@@ -66,7 +66,9 @@ public class ShareB64 extends CordovaPlugin {
 
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
                 String imageFileName = "Crocolor_" + timeStamp;
-                File albumF = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Crocolor");
+                File albumF = null;
+                
+                albumF = new File(this.cordova.getActivity().getApplicationContext().getExternalFilesDir(null), "Crocolor");
 
                 if (albumF != null) {
                     if (! albumF.mkdirs()) {
@@ -78,7 +80,7 @@ public class ShareB64 extends CordovaPlugin {
                 }
 
                 File imageF = File.createTempFile(imageFileName, ".jpg", albumF);
-                byte[] b = Base64.decode(imageData, Base64.DEFAULT);
+                byte[] b = Base64.decode(imageData.replace("data:image/png;base64,", ""), Base64.DEFAULT);
                 if (b.length > 0) {
                     Bitmap mBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
                     FileOutputStream ostream = new FileOutputStream(imageF);
@@ -96,7 +98,6 @@ public class ShareB64 extends CordovaPlugin {
                 if (message != null) {
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, message);
                     shareIntent.putExtra(Intent.EXTRA_TITLE, message);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                 }
 
                 ((CordovaActivity) this.cordova.getActivity()).startActivity(shareIntent);
