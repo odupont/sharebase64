@@ -98,7 +98,7 @@ public class ShareB64 extends CordovaPlugin {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                 }
 
-                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));*/
+                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
