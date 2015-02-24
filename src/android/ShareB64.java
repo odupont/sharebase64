@@ -49,7 +49,7 @@ public class ShareB64 extends CordovaPlugin {
                 String imageData = obj.getString("imageData");
                 String message = obj.has("message") ? obj.getString("message") : null;
 
-                Intent shareIntent = new Intent();
+                /*Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
 
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
@@ -87,7 +87,7 @@ public class ShareB64 extends CordovaPlugin {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                 }
 
-                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));
+                ((CordovaActivity) this.cordova.getActivity()).startActivity(Intent.createChooser(shareIntent));*/
 
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
