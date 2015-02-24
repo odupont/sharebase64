@@ -2,6 +2,9 @@ package fr.odupont.sharebase64;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 import org.apache.cordova.CordovaActivity;
 import org.json.JSONArray;
@@ -65,7 +68,7 @@ public class ShareB64 extends CordovaPlugin {
                     }
                 }
 
-                /*File imageF = File.createTempFile(imageFileName, ".jpg", albumF);
+                File imageF = File.createTempFile(imageFileName, ".jpg", albumF);
                 byte[] b = Base64.decode(imageData, Base64.DEFAULT);
                 if (b.length > 0) {
                     Bitmap mBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
@@ -78,7 +81,7 @@ public class ShareB64 extends CordovaPlugin {
 
                     shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
                     shareIntent.setType("image/jpeg");
-                }*/
+                }
 
 
                 if (message != null) {
