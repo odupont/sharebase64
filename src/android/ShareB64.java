@@ -39,7 +39,7 @@ public class ShareB64 extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        try {
+        /*try {
 
             if (action.equals("share")) {
                 if (args.length() != 1) {
@@ -113,6 +113,6 @@ public class ShareB64 extends CordovaPlugin {
             //return new PluginResult(PluginResult.Status.JSON_EXCEPTION);
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION,errorMessage));
             return false;
-        }
+        }*/
     }
 }
